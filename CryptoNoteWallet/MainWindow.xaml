@@ -2,25 +2,28 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="CryptoNote Wallet" Height="350" Width="617" Icon="pack://application:,,,/Resources/Wallet.png">
+        Title="Monero Wallet" Height="420" Width="617" Icon="pack://application:,,,/Resources/Wallet.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="30"  />
         </Grid.RowDefinitions>
-        <TabControl Margin="0,0,0,0" Grid.Row="0">
+        <TabControl Grid.Row="0" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="Wallet">
                 <Grid Margin="0">
-                    <Label Content="Balance:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="89"/>
-                    <Label Content="unconfirmed:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="89" FontSize="10"/>
-                    <Label x:Name="lblBalance" Content="X MRO" HorizontalAlignment="Left" Margin="99,10,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="lblUnconfirmed" Content="X MRO" HorizontalAlignment="Left" Margin="99,36,0,0" VerticalAlignment="Top" FontSize="10"/>
-                    <Label Content="Address:" HorizontalAlignment="Left" Margin="240,10,0,0" VerticalAlignment="Top" Width="57" Height="26"/>
-                    <TextBlock x:Name="tbAddress" HorizontalAlignment="Left" Margin="302,15,0,0" TextWrapping="Wrap" Text="Initializing" VerticalAlignment="Top" Width="195" Height="76" IsEnabled="False"/>
-                    <Button x:Name="btnCopyAddress" Content="Copy to clipboard" IsEnabled="False" HorizontalAlignment="Right" Margin="0,105,10,0" VerticalAlignment="Top" Click="btnCopyAddressClick"/>
+                    <GroupBox Header="Wallet Address" Margin="10,160,10,25"/>
+                    <GroupBox Header="Wallet Balance" Margin="10,10,10,175"/>
+                    <Label Content="Confirmed:" HorizontalAlignment="Left" Margin="43,38,0,0" VerticalAlignment="Top" Width="93"/>
+                    <Label Content="Unconfirmed:" HorizontalAlignment="Left" Margin="43,64,0,0" VerticalAlignment="Top" Width="93"/>
+                    <Label x:Name="lblBalance" Content="X MRO" HorizontalAlignment="Left" Margin="136,39,0,0" VerticalAlignment="Top" Width="184"/>
+                    <Label x:Name="lblUnconfirmed" Content="X MRO" HorizontalAlignment="Left" Margin="136,65,0,0" VerticalAlignment="Top" Width="184"/>
+                    <TextBlock x:Name="tbAddress" HorizontalAlignment="Left" Margin="25,192,0,0" TextWrapping="Wrap" Text="Initializing" VerticalAlignment="Top" Width="556" Height="52" IsEnabled="False"/>
+                    <Button x:Name="btnCopyAddress" Content="Copy to clipboard" IsEnabled="False" HorizontalAlignment="Right" Margin="0,261,22,0" VerticalAlignment="Top" Click="btnCopyAddressClick"/>
+                    <Label Content="Total:" HorizontalAlignment="Left" Margin="43,109,0,0" VerticalAlignment="Top" Width="93"/>
+                    <Label x:Name="lblTotal" Content="X MRO" HorizontalAlignment="Left" Margin="136,109,0,0" VerticalAlignment="Top" Width="184"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Transfer">
+            <TabItem Header="Send">
                 <Grid Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10"/>
@@ -34,15 +37,15 @@
                         <ColumnDefinition Width="120"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Destination address:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0"/>
-                    <xctk:WatermarkTextBox x:Name="tbSendAddress" Watermark="Enter a destination address" HorizontalAlignment="Stretch" Margin="0,4,0,0" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1"/>
-                    <Label Content="Amount:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="2" Grid.Column="0"/>
-                    <xctk:DecimalUpDown x:Name="tbSendAmount" FormatString="F8" Value="0.00000000" Increment=".01000000" Minimum="0" Grid.Row="2" Grid.Column="1" />
-                    <Label Content="Mixin count:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="3" Grid.Column="0"/>
-                    <xctk:IntegerUpDown x:Name="tbSendMixin" Value="2" Increment="1" Minimum="0" Grid.Row="3" Grid.Column="1" />
-                    <Label Content="Payment id:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="4" Grid.Column="0"/>
-                    <xctk:WatermarkTextBox x:Name="tbPaymentId" Watermark="Leave empty if there is no payment id" HorizontalAlignment="Stretch" Margin="0,4,0,0" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1"/>
-                    <Button x:Name="btnSend" Content="Send" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="75" Click="SendClick" IsEnabled="False"/>
+                    <Label Content="Destination address:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    <xctk:WatermarkTextBox x:Name="tbSendAddress" Watermark="Enter a destination address" HorizontalAlignment="Stretch" Margin="12,4,10,0" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1"/>
+                    <Label Content="Amount:" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2"/>
+                    <xctk:DecimalUpDown x:Name="tbSendAmount" FormatString="F8" Value="0.00000000" Increment=".01000000" Minimum="0" Grid.Row="2" Margin="305,5,10,25" Grid.Column="1" Grid.RowSpan="2" />
+                    <Label Content="Mixin count:" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Grid.Row="3" Grid.Column="0" Grid.RowSpan="2"/>
+                    <xctk:IntegerUpDown x:Name="tbSendMixin" Value="2" Increment="1" Minimum="0" Grid.Row="3" Margin="305,10,10,20" Grid.Column="1" Grid.RowSpan="2" />
+                    <Label Content="Payment id:" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2"/>
+                    <xctk:WatermarkTextBox x:Name="tbPaymentId" Watermark="Leave empty if there is no payment id" HorizontalAlignment="Stretch" Margin="10,15,10,170" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1" Grid.RowSpan="2"/>
+                    <Button x:Name="btnSend" Content="Send" Grid.Column="1" HorizontalAlignment="Right" Margin="0,16,10,0" Grid.Row="5" VerticalAlignment="Top" Width="168" Click="SendClick" IsEnabled="False" Height="27"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Transactions">
@@ -52,7 +55,7 @@
                     </ScrollViewer>
                 </Grid>
             </TabItem>
-            <TabItem Header="Solo Mining">
+            <TabItem Header="Solo Mining" Margin="-1,0,-3,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
@@ -62,9 +65,9 @@
                         <ColumnDefinition Width="210"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Number of threads:" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0"/>
-                    <xctk:IntegerUpDown x:Name="tbSoloMinerThreads" Value="1" Increment="1" Minimum="1" HorizontalAlignment="Stretch" Margin="0,4,0,0" Grid.Row="0" Grid.Column="1"/>
-                    <Button x:Name="btnStartSoloMining" Content="Start mining" Margin="0,4,0,0" IsEnabled="False" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="150" Grid.Row="1" Click="btnStartSoloMiningClick" />
+                    <Label Content="Number of threads:" HorizontalAlignment="Left" Margin="215,10,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"/>
+                    <xctk:IntegerUpDown x:Name="tbSoloMinerThreads" Value="1" Increment="1" Minimum="1" HorizontalAlignment="Stretch" Margin="333,10,10,25" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"/>
+                    <Button x:Name="btnStartSoloMining" Content="Start mining" Margin="0,10,10,-6" IsEnabled="False" HorizontalAlignment="Right" Width="168" Grid.Row="1" Click="btnStartSoloMiningClick" Grid.Column="1" />
                 </Grid>
             </TabItem>
             <TabItem Header="Pool Mining">
@@ -81,17 +84,17 @@
                         <ColumnDefinition Width="210"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Pool address (including portnumber):" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0"/>
-                    <ComboBox x:Name="lbMiningPools" IsEditable="True" HorizontalAlignment="Stretch" Margin="0,4,0,0" Grid.Row="0" Grid.Column="1" />
-                    <Label Content="Pool login (your address):" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0"/>
-                    <TextBox x:Name="tbPoolLogin" HorizontalAlignment="Stretch" Margin="0,4,0,0" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1"/>
-                    <Label Content="Pool password:" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Grid.Row="2" Grid.Column="0"/>
-                    <TextBox x:Name="tbPoolPassword" Text="x" HorizontalAlignment="Stretch" Margin="0,4,0,0" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1"/>
-                    <Label Content="Number of threads:" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Grid.Row="3" Grid.Column="0"/>
-                    <xctk:IntegerUpDown x:Name="tbPoolMinerThreads" Value="1" Increment="1" Minimum="1" HorizontalAlignment="Stretch" Margin="0,4,0,0" Grid.Row="3" Grid.Column="1"/>
-                    <Label Content="Show miner windows:" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Grid.Row="4" Grid.Column="0"/>
-                    <CheckBox x:Name="chkShowPoolMinerWindows" VerticalAlignment="Center" IsChecked="false" Margin="0,4,0,0" Grid.Row="4" Grid.Column="1"/>
-                    <Button x:Name="btnStartPoolMining" Content="Start mining" Margin="0,4,0,0" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="125" Grid.Row="5" Click="btnStartPoolMiningClick" />
+                    <Label Content="Pool address (include port):" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
+                    <ComboBox x:Name="lbMiningPools" IsEditable="True" HorizontalAlignment="Stretch" Margin="178,10,10,25" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+                    <Label Content="Pool user (payment address):" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"/>
+                    <TextBox x:Name="tbPoolLogin" HorizontalAlignment="Stretch" Margin="178,10,10,0" TextWrapping="Wrap" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                    <Label Content="Pool password:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="0" Margin="10,6,0,0" Grid.RowSpan="2"/>
+                    <TextBox x:Name="tbPoolPassword" Text="x" HorizontalAlignment="Stretch" Margin="178,6,10,29" TextWrapping="Wrap" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                    <Label Content="Number of threads:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="0" Margin="10,6,0,0" Grid.RowSpan="2"/>
+                    <xctk:IntegerUpDown x:Name="tbPoolMinerThreads" Value="1" Increment="1" Minimum="1" HorizontalAlignment="Stretch" Margin="178,8,375,27" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                    <Label Content="Show miner windows:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="0" Margin="10,6,0,0"/>
+                    <CheckBox x:Name="chkShowPoolMinerWindows" VerticalAlignment="Center" IsChecked="false" Margin="0,10,365,3" Grid.Row="5" HorizontalAlignment="Right" Width="60" Height="18" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btnStartPoolMining" Content="Start mining" Margin="0,4,10,0" HorizontalAlignment="Right" Width="168" Grid.Row="5" Click="btnStartPoolMiningClick" Grid.Column="1" />
                 </Grid>
             </TabItem>
             <TabItem Header="Wallet Log">
@@ -108,6 +111,8 @@
                     </ScrollViewer>
                 </Grid>
             </TabItem>
+
+
         </TabControl>
         <StatusBar Grid.Row="1">
             <StatusBarItem HorizontalContentAlignment="Left">

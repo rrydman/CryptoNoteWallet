@@ -189,7 +189,8 @@ namespace CryptoNoteWallet
         private void SetBalance(decimal total, decimal unlocked)
         {
             lblBalance.Content = string.Format("{0} MRO", unlocked);
-            lblUnconfirmed.Content = string.Format("{0} MRO", total);
+            lblUnconfirmed.Content = string.Format("{0} MRO", total-unlocked);
+            lblTotal.Content = string.Format("{0} MRO", total);
         }
 
         /// <summary>
@@ -376,6 +377,11 @@ namespace CryptoNoteWallet
                     btnStartPoolMining.Content = string.Format("Stop miners ({0})", MinerManager.Processes.Count);
                 }
             }
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
